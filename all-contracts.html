@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Contracts | Tradata Exchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        }
+        
+        .data-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .data-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .price-up {
+            color: #10b981;
+        }
+        
+        .price-down {
+            color: #ef4444;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        // Sample contracts data
+        const contracts = [
+            {
+                id: 'cbi',
+                name: 'Consumer Behavior Index',
+                delivery: 'Q3 2023 Delivery',
+                price: '245.50',
+                change: '+1.2%',
+                openInterest: '12,450',
+                icon: 'fa-shopping-cart',
+                iconColor: 'text-primary',
+                iconBg: 'bg-blue-100'
+            },
+            {
+                id: 'ha',
+                name: 'Healthcare Analytics',
+                delivery: 'Q4 2023 Delivery',
+                price: '178.25',
+                change: '-0.8%',
+                openInterest: '8,720',
+                icon: 'fa-heartbeat',
+                iconColor: 'text-green-500',
+                iconBg: 'bg-green-100'
+            },
+            {
+                id: 'fs',
+                name: 'Financial Sentiment',
+                delivery: 'Monthly Rolling',
+                price: '312.75',
+                change: '+2.4%',
+                openInterest: '15,320',
+                icon: 'fa-chart-line',
+                iconColor: 'text-purple-500',
+                iconBg: 'bg-purple-100'
+            },
+            {
+                id: 'rft',
+                name: 'Retail Foot Traffic',
+                delivery: 'Q3 2023 Delivery',
+                price: '156.30',
+                change: '+0.5%',
+                openInterest: '9,150',
+                icon: 'fa-store',
+                iconColor: 'text-yellow-500',
+                iconBg: 'bg-yellow-100'
+            },
+            {
+                id: 'aits',
+                name: 'AI Training Sets',
+                delivery: 'Q4 2023 Delivery',
+                price: '289.40',
+                change: '-1.1%',
+                openInterest: '7,890',
+                icon: 'fa-brain',
+                iconColor: 'text-pink-500',
+                iconBg: 'bg-pink-100'
+            },
+            {
+                id: 'gld',
+                name: 'Geo-Location Data',
+                delivery: 'Monthly Rolling',
+                price: '201.80',
+                change: '+3.2%',
+                openInterest: '11,230',
+                icon: 'fa-map-marker-alt',
+                iconColor: 'text-red-500',
+                iconBg: 'bg-red-100'
+            }
+        ];
+
+        function loadContracts() {
+            const container = document.getElementById('contracts-container');
+            contracts.forEach(contract => {
+                const card = document.createElement('div');
+                card.className = 'data-card bg-white rounded-lg shadow-md overflow-hidden';
+                card.innerHTML = `
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 ${contract.iconBg} p-3 rounded-full">
+                                <i class="fas ${contract.icon} ${contract.iconColor} text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-dark">${contract.name}</h3>
+                                <p class="text-gray-500">${contract.delivery}</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-500">Current Price</span>
+                                <span class="text-xl font-bold">$${contract.price}</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-gray-500">Daily Change</span>
+                                <span class="${contract.change.includes('+') ? 'text-green-500' : 'text-red-500'} font-medium">${contract.change}</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-gray-500">Open Interest</span>
+                                <span class="font-medium">${contract.openInterest}</span>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button onclick="window.location.href='contract-detail.html?id=${contract.id}'" class="w-full bg-primary hover:bg-secondary text-white py-2 px-4 rounded-md">
+                                View Contract
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</head>
+<body class="bg-gray-50" onload="loadContracts()">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-xl font-bold text-dark">Tradata</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                        <a href="markets.html" class="border-primary text-dark inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Markets</a>
+                        <a href="products.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Products</a>
+                        <a href="pricing.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Pricing</a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button onclick="window.location.href='trading.html'" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md text-sm font-medium">Sign In</button>
+                    <button onclick="window.open('simulator.html','_blank')" class="ml-4 bg-white border border-primary text-primary hover:bg-gray-50 px-4 py-2 rounded-md text-sm font-medium">Trial</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- All Contracts -->
+    <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold text-dark">All Data Futures Contracts</h2>
+            <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                Explore our full range of standardized data futures contracts
+            </p>
+        </div>
+        
+        <div id="contracts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Contracts will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider">Markets</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">All Contracts</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Most Active</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">New Listings</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Expiring Soon</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider">Resources</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">API Reference</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Tutorials</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Market Data</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider">Company</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Press</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider">Legal</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Compliance</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Regulations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold">Tradata</span>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <p class="text-gray-400 text-sm">
+                        &copy; 2025 Tradata. All rights reserved.
+                    </p>
+                </div>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="https://x.com/Tradataindubai" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/tradata1/" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
