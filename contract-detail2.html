@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Details | Tradata Exchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        }
+        
+        .price-up {
+            color: #10b981;
+        }
+        
+        .price-down {
+            color: #ef4444;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        // Sample contract data (in practice, this would be dynamically loaded)
+        const contractData = {
+            cbi: {
+                symbol: "HCA-Q423",
+                name: "Healthcare Analytics",
+                description: "Futures contract for Healthcare Analytics Q4 2023 delivery",
+                exchange: "TRADE DATA EXCHANGE",
+                contractSize: "1,000 Index Points",
+                tickSize: "0.01 Index Points",
+                tickValue: "$10.00",
+                tradingHours: "Sunday 6:00 PM - Friday 5:00 PM ET",
+                lastPrice: "178.25",
+                change: "-0.8%",
+                open: "179.50",
+                high: "180.75",
+                low: "177.50",
+                volume: "1,850",
+                openInterest: "8,720",
+                settlement: "Cash Settlement based on published healthcare analytics index value",
+                firstNotice: "December 15, 2023",
+                lastTrading: "December 20, 2023",
+                delivery: "December 31, 2023",
+                margin: {
+                    initial: "$5,000",
+                    maintenance: "$4,000",
+                    speculative: "$5,500",
+                    hedge: "$4,500"
+                },
+                contractMonths: ["Mar", "Jun", "Sep", "Dec"],
+                productCode: "HCA",
+                listingExchange: "TDE",
+                venue: "Electronic",
+                clearing: "Tradata Clearing House"
+            }
+        };
+
+        function loadContractDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const contractId = urlParams.get('id') || 'cbi';
+            const contract = contractData[contractId];
+            
+            if (contract) {
+                document.getElementById('contract-symbol').textContent = contract.symbol;
+                document.getElementById('contract-name').textContent = contract.name;
+                document.getElementById('contract-description').textContent = contract.description;
+                document.getElementById('last-price').textContent = contract.lastPrice;
+                document.getElementById('price-change').textContent = contract.change;
+                document.getElementById('price-change').className = contract.change.includes('+') ? 'text-green-500' : 'text-red-500';
+                document.getElementById('open-price').textContent = contract.open;
+                document.getElementById('high-price').textContent = contract.high;
+                document.getElementById('low-price').textContent = contract.low;
+                document.getElementById('volume').textContent = contract.volume;
+                document.getElementById('open-interest').textContent = contract.openInterest;
+                document.getElementById('contract-size').textContent = contract.contractSize;
+                document.getElementById('tick-size').textContent = contract.tickSize;
+                document.getElementById('tick-value').textContent = contract.tickValue;
+                document.getElementById('trading-hours').textContent = contract.tradingHours;
+                document.getElementById('settlement').textContent = contract.settlement;
+                document.getElementById('first-notice').textContent = contract.firstNotice;
+                document.getElementById('last-trading').textContent = contract.lastTrading;
+                document.getElementById('delivery').textContent = contract.delivery;
+                document.getElementById('initial-margin').textContent = contract.margin.initial;
+                document.getElementById('maintenance-margin').textContent = contract.margin.maintenance;
+                document.getElementById('speculative-margin').textContent = contract.margin.speculative;
+                document.getElementById('hedge-margin').textContent = contract.margin.hedge;
+                document.getElementById('contract-months').textContent = contract.contractMonths.join(", ");
+                document.getElementById('product-code').textContent = contract.productCode;
+                document.getElementById('listing-exchange').textContent = contract.listingExchange;
+                document.getElementById('venue').textContent = contract.venue;
+                document.getElementById('clearing').textContent = contract.clearing;
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50" onload="loadContractDetails()">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-xl font-bold text-dark">Tradata</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                        <a href="markets.html" class="border-primary text-dark inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Markets</a>
+                        <a href="products.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Products</a>
+                        <a href="pricing.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Pricing</a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button onclick="window.location.href='https://app--tradata-futures-2e1a588e.base44.app/'" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md text-sm font-medium">Sign In</button>
+                    <button onclick="window.open('simulator.html','_blank')" class="ml-4 bg-white border border-primary text-primary hover:bg-gray-50 px-4 py-2 rounded-md text-sm font-medium">Trial</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contract Details -->
+    <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <h1 class="text-3xl font-extrabold text-dark" id="contract-symbol"></h1>
+            <p class="text-xl text-gray-500 mt-2" id="contract-name"></p>
+            <p class="text-gray-500 mt-2" id="contract-description"></p>
+
+            <!-- Market Data -->
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold text-dark">Market Data</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Last Price</span>
+                            <span class="font-medium" id="last-price"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Change</span>
+                            <span id="price-change"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Open</span>
+                            <span class="font-medium" id="open-price"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">High</span>
+                            <span class="font-medium" id="high-price"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Low</span>
+                            <span class="font-medium" id="low-price"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Volume</span>
+                            <span class="font-medium" id="volume"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Open Interest</span>
+                            <span class="font-medium" id="open-interest"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contract Specifications -->
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold text-dark">Contract Specifications</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Contract Size</span>
+                            <span class="font-medium" id="contract-size"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Tick Size</span>
+                            <span class="font-medium" id="tick-size"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Tick Value</span>
+                            <span class="font-medium" id="tick-value"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Trading Hours</span>
+                            <span class="font-medium" id="trading-hours"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Settlement</span>
+                            <span class="font-medium" id="settlement"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">First Notice Date</span>
+                            <span class="font-medium" id="first-notice"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Last Trading Date</span>
+                            <span class="font-medium" id="last-trading"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Delivery</span>
+                            <span class="font-medium" id="delivery"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Margin Requirements -->
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold text-dark">Margin Requirements</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Initial Margin</span>
+                            <span class="font-medium" id="initial-margin"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Maintenance Margin</span>
+                            <span class="font-medium" id="maintenance-margin"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Speculative Margin</span>
+                            <span class="font-medium" id="speculative-margin"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Hedge Margin</span>
+                            <span class="font-medium" id="hedge-margin"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold text-dark">Additional Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Contract Months</span>
+                            <span class="font-medium" id="contract-months"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Product Code</span>
+                            <span class="font-medium" id="product-code"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Listing Exchange</span>
+                            <span class="font-medium" id="listing-exchange"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Venue</span>
+                            <span class="font-medium" id="venue"></span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b">
+                            <span class="text-gray-500">Clearing</span>
+                            <span class="font-medium" id="clearing"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex space-x-4">
+                <button onclick="window.location.href='https://app--tradata-futures-2e1a588e.base44.app/'" class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-md">
+                    Trade Now
+                </button>
+                <button onclick="window.location.href='all-contracts.html'" class="bg-white border border-primary text-primary hover:bg-gray-50 py-2 px-4 rounded-md">
+                    View All Contracts
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider">Markets</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="all-contracts.html" class="text-gray-300 hover:text-white">All Contracts</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Most Active</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">New Listings</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Expiring Soon</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider">Resources</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">API Reference</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Tutorials</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Market Data</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider">Company</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Press</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider">Legal</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Compliance</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Regulations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold">Tradata</span>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <p class="text-gray-400 text-sm">
+                        &copy; 2025 Tradata. All rights reserved.
+                    </p>
+                </div>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="https://x.com/Tradataindubai" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/tradata1/" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
